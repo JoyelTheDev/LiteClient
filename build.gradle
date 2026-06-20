@@ -57,12 +57,10 @@ dependencies {
     include implementation("net.kyori:adventure-key:${project.adventure_version}")
     include implementation("net.kyori:adventure-text-minimessage:${project.adventure_version}")
     include implementation("net.kyori:adventure-text-serializer-plain:${project.adventure_version}")
-
     include implementation("net.raphimc:MinecraftAuth:${project.minecraftauth_version}")
-
+    include implementation("com.github.Vatuu:discord-rpc:1.6.2")
+    
     modCompileOnly "com.viaversion:viafabricplus-api:${project.viafabricplus_version}"
-
-    implementation "com.github.Vatuu:discord-rpc:1.6.2"
 
 }
 
