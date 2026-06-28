@@ -11,6 +11,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.multiplayer.ServerData;
+import net.minecraft.world.entity.player.Player;
 
 public class HudManager {
 	private static final int X = 8;
@@ -37,7 +38,9 @@ public class HudManager {
 		List<HudLine> lines = List.of(
 				new HudLine("IP", getServerIp(minecraft)),
 				new HudLine("Engine", getEngine(minecraft)),
-				new HudLine("Last Packet", getLastPacketText())
+				new HudLine("Last Packet", getLastPacketText()),
+				new HudLine("XYZ", getCoordinates(minecraft)),
+				new HudLine("FPS", getFps(minecraft))
 		);
 		int width = getPanelWidth(font, lines);
 		int height = HEADER_HEIGHT + PADDING + lines.size() * ROW_HEIGHT + PADDING;
@@ -121,6 +124,19 @@ public class HudManager {
 		}
 
 		return (System.currentTimeMillis() - lastPacketTimeMillis) / 1000.0D;
+	}
+
+	private String getCoordinates(Minecraft minecraft) {
+		Player player = minecraft.player;
+		if (player == null) {
+			return "N/A";
+		}
+		return String.format(Locale.ROOT, "%.1f / %.1f / %.1f",
+				player.getX(), player.getY(), player.getZ());
+	}
+
+	private String getFps(Minecraft minecraft) {
+		return minecraft.getFps() + " fps";
 	}
 
 	private record HudLine(String label, String value) {
